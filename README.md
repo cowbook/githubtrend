@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Trend
 
-## Getting Started
+📊 每日更新 GitHub Trending 热门项目，用幽默的方式解读技术趋势。
 
-First, run the development server:
+## 🌟 功能特点
+
+- 📈 展示 GitHub 热门项目排行榜
+- 🎭 幽默风趣的项目介绍
+- 🌙 支持明暗主题切换
+- 📱 响应式设计，适配各种设备
+- ⚡ 基于 Next.js 构建，静态部署速度快
+
+## 🚀 快速开始
 
 ```bash
+# 克隆仓库
+git clone https://github.com/cowbook/githubtrend.git
+cd githubtrend
+
+# 安装依赖
+npm install
+
+# 本地开发
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 构建静态网站
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 部署到 GitHub Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. 在 GitHub 上创建名为 `githubtrend` 的仓库
+2. 将代码推送到仓库
+3. 在仓库 Settings → Pages 中选择 `gh-pages` 分支作为源
+4. CI/CD 会自动构建并部署
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+或者手动部署 `out` 目录：
 
-## Learn More
+```bash
+# 将 out 目录的内容推送到 gh-pages 分支
+cd out
+git init
+git add .
+git commit -m "Deploy to GitHub Pages"
+git push -f origin gh-pages
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ 技术栈
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **框架**: Next.js 14
+- **样式**: Tailwind CSS 3
+- **类型**: TypeScript
+- **部署**: GitHub Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 项目结构
 
-## Deploy on Vercel
+```
+├── app/                  # Next.js App Router
+│   ├── page.tsx          # 主页面
+│   ├── layout.tsx        # 布局组件
+│   └── globals.css       # 全局样式
+├── components/           # React 组件
+│   ├── Header.tsx        # 头部导航
+│   ├── Hero.tsx          # 英雄区域
+│   └── TrendingList.tsx  # 项目列表
+├── lib/                  # 工具函数
+│   ├── data.ts           # 静态数据
+│   └── humor.ts          # 幽默内容生成
+├── public/               # 静态资源
+└── out/                  # 构建输出目录（静态文件）
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 参与贡献
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+欢迎提交 Issue 和 Pull Request！
+
+## 📄 许可证
+
+MIT License
