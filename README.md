@@ -29,21 +29,13 @@ npm run build
 
 ## 📦 部署到 GitHub Pages
 
-1. 在 GitHub 上创建名为 `githubtrend` 的仓库
-2. 将代码推送到仓库
-3. 在仓库 Settings → Pages 中选择 `gh-pages` 分支作为源
-4. CI/CD 会自动构建并部署
+本项目当前发布地址为：
 
-或者手动部署 `out` 目录：
+- https://cowbook.github.io/github-trends-daily/
 
-```bash
-# 将 out 目录的内容推送到 gh-pages 分支
-cd out
-git init
-git add .
-git commit -m "Deploy to GitHub Pages"
-git push -f origin gh-pages
-```
+由于 GitHub Pages 部署在子路径 `/github-trends-daily/` 下，项目已在 `next.config.js` 中配置 `basePath` 和 `assetPrefix`，以确保静态资源和页面路径正确。
+
+当前使用 GitHub Actions 部署 Pages Artifact，无需手动维护 `gh-pages` 分支。
 
 ## 🛠️ 技术栈
 

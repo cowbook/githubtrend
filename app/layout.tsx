@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "zh_CN",
   },
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -21,9 +24,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      </head>
       <body className="min-h-screen flex flex-col antialiased">
         {children}
       </body>

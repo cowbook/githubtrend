@@ -1,71 +1,62 @@
 # 🚀 GitHub Trend 部署指南
 
-## 第一步：创建 GitHub 仓库
+## 当前发布地址
 
-你需要手动在 GitHub 上创建仓库，步骤如下：
+- https://cowbook.github.io/github-trends-daily/
 
-1. 打开 https://github.com/new
-2. Repository name: `githubtrend`
-3. 选择 Public
-4. 不要勾选 "Add a README file"（我们已经有了）
-5. 点击 "Create repository"
+## 部署方式说明
 
-## 第二步：推送代码
+本项目使用 GitHub Actions + GitHub Pages Artifact 自动部署。
 
-创建仓库后，运行以下命令：
+由于站点不是部署在域名根路径，而是部署在子路径：
 
-```bash
-cd /Users/yanzhang/.mavis/agents/coder/workspace/githubtrend
+- `/github-trends-daily/`
 
-# 添加远程仓库（如果还没有）
-git remote add origin git@github.com:cowbook/githubtrend.git
+因此 `next.config.js` 中必须配置：
 
-# 推送代码
-git push -u origin main
-```
+- `basePath: '/github-trends-daily'`
+- `assetPrefix: '/github-trends-daily/'`
 
-## 第三步：启用 GitHub Pages
+并且仅在 GitHub Actions 环境中启用，这样不会影响本地开发。
 
-1. 在仓库页面点击 "Settings"
-2. 滚动到 "GitHub Pages" 部分
-3. Source 选择 "Deploy from a branch"
-4. Branch 选择 "gh-pages"（推送后会自动创建）
-5. 点击 "Save"
+## 自动部署
 
-## 第四步：等待部署
+当前工作流文件：
 
-GitHub Actions 会自动构建并部署网站。等待 2-3 分钟后，你的网站就可以访问了：
-- https://cowbook.github.io/githubtrend
+- `.github/workflows/deploy.yml`
 
----
+触发条件：
 
-## 手动部署（如果自动部署失败）
+- push 到 `main`
+- 手动触发 `workflow_dispatch`
 
-如果 GitHub Actions 部署失败，你可以手动部署 `out` 目录：
+标准部署流程：
 
-```bash
-cd /Users/yanzhang/.mavis/agents/coder/workspace/githubtrend
+1. 推送代码到 `main`
+2. GitHub Actions 自动执行 `npm ci`
+3. GitHub Actions 自动执行 `npm run build`
+4. 构建产物 `out/` 被上传到 GitHub Pages
+5. GitHub Pages 自动发布站点
 
-# 安装 gh CLI（如果还没有）
-brew install gh
+## GitHub Pages 设置
 
-# 登录 GitHub
-gh auth login
+仓库 Settings → Pages 中应使用 GitHub Actions 作为部署来源，而不是 `gh-pages` 分支。
 
-# 创建 gh-pages 分支
-cd out
-git init
-git add .
-git commit -m "Deploy to GitHub Pages"
-git push -f origin gh-pages
-```
+## 手动检查项
 
----
+如果页面样式或静态资源加载失败，请优先检查：
+
+1. `next.config.js` 是否配置了正确的 `basePath`
+2. `next.config.js` 是否配置了正确的 `assetPrefix`
+3. 发布地址是否与配置一致：`/github-trends-daily/`
+4. 页面中是否存在写死的根路径资源引用
+
+## 已知兼容性说明
+
+- `app/favicon.ico` 已存在，布局元数据应引用 `/favicon.ico`
+- 外链（例如 GitHub、Trending）不受 `basePath` 影响
+- 当前首页为静态导出页面，适合 GitHub Pages 部署
 
 ## 更新网站内容
 
 网站使用静态数据。如需更新 GitHub Trending 内容，请更新 `lib/data.ts` 文件中的 `staticData` 对象。
-
-## 自动化更新
-
-如需每日自动更新，可以设置 GitHub Actions 定时任务抓取最新数据。
